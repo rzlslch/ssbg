@@ -44,6 +44,7 @@ module.exports = async () => {
 
 async function resetGlobal() {
   for (const _dir of _directory) {
+    console.log(_dir);
     await assignGlobal(_dir, null);
   }
 }

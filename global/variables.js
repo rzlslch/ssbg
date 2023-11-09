@@ -126,7 +126,7 @@ function postFormat(list) {
     return 0;
   }).map(e => {
     if (e.permalink) e.url = e.permalink;
-    else e.url = `/${filename}`;
+    else e.url = `/${e.filename}`;
     return e;
   })
 }

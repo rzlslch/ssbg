@@ -4,8 +4,8 @@ const { getDir, getState, setState, getMainWindow } = require("../../global/vari
 const assignGlobal = require("../../handler/scripts/assignGlobal");
 const loadContent = require("../../handler/scripts/loadContent");
 const logger = require("../../handler/scripts/logger");
-const generateSub = require("../../handler/scripts/generateSub");
 const handleGenerate = require("../../handler/handleGenerate");
+const { ENGINE_GENERATE } = require("../../global/constants");
 
 let watcher;
 let watcher_include;
@@ -27,11 +27,6 @@ module.exports = {
       watcher_layout.on("create", (file) => watchFunctionCreateOrDelete(file, "create", "_layout"))
       watcher_post.on("create", (file) => watchFunctionCreateOrDelete(file, "create", "_post"))
       watcher_page.on("create", (file) => watchFunctionCreateOrDelete(file, "create", "_page"))
-
-      watcher_include.on("change", (file) => watchFunctionCreateOrDelete(file, "update", "_include"))
-      watcher_layout.on("change", (file) => watchFunctionCreateOrDelete(file, "update", "_layout"))
-      watcher_post.on("change", (file) => watchFunctionCreateOrDelete(file, "update", "_post"))
-      watcher_page.on("change", (file) => watchFunctionCreateOrDelete(file, "update", "_page"))
 
       watcher_include.on("delete", (file) => watchFunctionCreateOrDelete(file, "delete", "_include"))
       watcher_layout.on("delete", (file) => watchFunctionCreateOrDelete(file, "delete", "_layout"))
@@ -60,11 +55,10 @@ async function watchFunctionCreateOrDelete(file, type, _dir) {
   watchFunctionLogger(file, type);
   await assignGlobal(_dir);
   let content = loadContent(_dir.replace(/_/g,''));
-  await handleGenerate();
+  // await handleGenerate();
   console.log("done generate");
   setState({content});
   const state = getState()
-  console.log(content);
   getMainWindow().webContents.send(ENGINE_GENERATE, state);
 }
 

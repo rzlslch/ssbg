@@ -8,14 +8,23 @@ const globalVariables = require('../../global/variables');
 module.exports = async (_dir) => {
   try {
     const mainDir = getDir();
-    let targetDir = path.join(mainDir, _dir);
-    let dataList = targetDir ? readdirSync(targetDir) : [];
+    let fileProc = [];
     let method = `set${_dir}`.toString().trim();
-    if (typeof globalVariables[method] === 'function') {
-      const fileProc = await processFile(_dir, dataList);
+    if (mainDir) {
+      let targetDir = path.join(mainDir, _dir);
+      let dataList = targetDir ? readdirSync(targetDir) : [];
+      if (typeof globalVariables[method] === 'function') {
+        fileProc = await processFile(_dir, dataList);
+      }
+    }
+    if (typeof globalVariables[method] === "function") {
       globalVariables[method](fileProc);
     }
   } catch (error) {
     logger.error(error);
   }
+}
+
+function applyGlobal(method, file) {
+  globalVariables[method](file)
 }

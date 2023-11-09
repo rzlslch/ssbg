@@ -20,10 +20,12 @@ module.exports = async (_, args) => {
       let fullDate = date.toISOString().split('T')[0];
       let fullTime = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
       let formatDate = `${fullDate} ${fullTime} ${timezoneCalc}`;
+      let strTitle = filename.replace(/ /g, '-');
       config.layout = 'post';
       config.title = filename;
+      config.permalink = `/${strTitle}`
       config.date = formatDate;
-      filenameFormat = `${fullDate}-${filename.replace(/ /g, '-')}.md`;
+      filenameFormat = `${fullDate}-${strTitle}.md`;
     }
     else if (dir.includes('page')) {
       config.layout = 'default';
@@ -37,8 +39,7 @@ module.exports = async (_, args) => {
     if (Object.keys(config).length) {
       textValue += '---';
       for (const [key, value] of Object.entries(config)) {
-        if (key === 'title') textValue += `\n${key}: "${value}"`;
-        else textValue += `\n${key}: ${value}`;
+        textValue += `\n${key}: ${value}`;
       }
       textValue += '\n---\n';
     } else {
