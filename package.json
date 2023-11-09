@@ -1,0 +1,23 @@
+{
+  "name": "winbold",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "set NODE_ENV=development&&electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "rzlslch",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^27.0.3",
+    "electron-reload": "^2.0.0-alpha.1",
+    "electron-reloader": "^1.2.3"
+  },
+  "dependencies": {
+    "highlight.js": "^11.9.0",
+    "hound": "^1.0.5",
+    "showdown": "^2.1.0"
+  }
+}
