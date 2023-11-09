@@ -42,7 +42,7 @@ async function translateLine(content, html) {
     })
     let stringCode = "";
     stringCode += "let site = {\n";
-    stringCode += "title: 'dummy',\n"
+    stringCode += "title: '@rzlslch',\n"
     stringCode += `posts: (${JSON.stringify(post)}),\n`;
     stringCode += "}\n";
     stringCode += "let page = {\n";

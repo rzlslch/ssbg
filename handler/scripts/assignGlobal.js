@@ -24,7 +24,3 @@ module.exports = async (_dir) => {
     logger.error(error);
   }
 }
-
-function applyGlobal(method, file) {
-  globalVariables[method](file)
-}
